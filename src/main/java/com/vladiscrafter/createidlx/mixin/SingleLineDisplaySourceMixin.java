@@ -67,9 +67,8 @@ public abstract class SingleLineDisplaySourceMixin {
         if (!CreateIDLXMixinUtils.hasUnescapedSpecifiers(label) && !CreateIDLXMixinUtils.hasEscapedSpecifiers(label)) return originalValue;
 
         MutableComponent raw = this.createidlx$invokeProvideLine(context, stats);
-        if (raw == SingleLineDisplaySource.EMPTY_LINE) return originalValue;
+        String fullLine = CreateIDLXMixinUtils.assembleFullLine(context, ((raw == SingleLineDisplaySource.EMPTY_LINE) ? "" : raw.getString()));
 
-        String fullLine = CreateIDLXMixinUtils.assembleFullLine(context, raw.getString());
         return ImmutableList.of(Component.literal(fullLine));
     }
 
@@ -91,9 +90,8 @@ public abstract class SingleLineDisplaySourceMixin {
         if (!CreateIDLXMixinUtils.hasUnescapedSpecifiers(label) && !CreateIDLXMixinUtils.hasEscapedSpecifiers(label)) return originalValue;
 
         MutableComponent raw = this.createidlx$invokeProvideLine(context, stats);
-        if (raw == SingleLineDisplaySource.EMPTY_LINE) return originalValue;
+        String fullLine = CreateIDLXMixinUtils.assembleFullLine(context, ((raw == SingleLineDisplaySource.EMPTY_LINE) ? "" : raw.getString()));
 
-        String fullLine = CreateIDLXMixinUtils.assembleFullLine(context, raw.getString());
         return ImmutableList.of(ImmutableList.of(Component.literal(fullLine)));
     }
 
