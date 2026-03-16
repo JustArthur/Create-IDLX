@@ -12,6 +12,14 @@
   "createidlx.gui.display_link.progress_bar_support.enabled": "включена",
   "createidlx.gui.display_link.progress_bar_support.disabled": "отключена",
 
+  "createidlx.display_source.current_floor_extended": "Местоположение лифта +",
+  "createidlx.display_source.current_floor_extended.display": "Формат отображения",
+  "createidlx.display_source.current_floor_extended.short_name": "Идентификатор этажа",
+  "createidlx.display_source.current_floor_extended.long_name": "Описание этажа",
+  "createidlx.display_source.current_floor_extended.short_n_long": "Идентификатор и описание",
+  "createidlx.display_source.current_floor_extended.long_n_short": "Описание и идентификатор",
+  "createidlx.display_source.current_floor_extended.double_template": "%s (%s)",
+
   "createidlx.ponder.attached_label.header": "Использованием спецификаторов в добавочной надписи передатчика информации",
   "createidlx.ponder.attached_label.text_1": "По умолчанию строка информации, полученная передатчиком от источника, отправляется визуализатору как есть",
   "createidlx.ponder.attached_label.text_2": "Откройте интерфейс, чтобы настроить добавочную надпись в соответствующем поле",

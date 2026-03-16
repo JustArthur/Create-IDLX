@@ -2,13 +2,12 @@ package com.vladiscrafter.createidlx;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.vladiscrafter.createidlx.config.CIDLXConfigs;
+import com.vladiscrafter.createidlx.registry.CreateIDLXDisplaySources;
 import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModLoadingContext;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
@@ -19,6 +18,9 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod(value = CreateIDLX.ID)
 public class CreateIDLX {
@@ -35,6 +37,8 @@ public class CreateIDLX {
 
         CreateIDLX.REGISTRATE.registerEventListeners(modEventBus);
 
+        modEventBus.addListener(CreateIDLXDisplaySources::register);
+
         CIDLXConfigs.register(modLoadingContext, modContainer);
 
         modEventBus.addListener(this::onLoadConfig);
@@ -44,6 +48,13 @@ public class CreateIDLX {
     public static MutableComponent translate(String key, Object... args) {
         Object[] args1 = LangBuilder.resolveBuilders(args);
         return Component.translatable(ID + "." + key, args1);
+    }
+
+    public static List<Component> translatedOptions(String prefix, String... keys) {
+        List<Component> result = new ArrayList<>(keys.length);
+        for (String key : keys)
+            result.add(translate((prefix != null ? prefix + "." : "") + key));
+        return result;
     }
 
     public static ResourceLocation asResource(String path) {
