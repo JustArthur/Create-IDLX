@@ -11,6 +11,7 @@ import com.simibubi.create.content.trains.display.FlapDisplayBlockEntity;
 import com.simibubi.create.content.trains.display.FlapDisplayLayout;
 import com.simibubi.create.content.trains.display.FlapDisplaySection;
 
+import com.vladiscrafter.createidlx.content.source.CountdownDisplaySource;
 import com.vladiscrafter.createidlx.util.CreateIDLXMixinUtils;
 import com.vladiscrafter.createidlx.config.CIDLXConfigs;
 import net.minecraft.network.chat.Component;
@@ -67,7 +68,9 @@ public abstract class SingleLineDisplaySourceMixin {
         MutableComponent raw = this.createidlx$invokeProvideLine(context, stats);
         String fullLine = CreateIDLXMixinUtils.assembleFullLine(context, ((raw == SingleLineDisplaySource.EMPTY_LINE) ? "" : raw.getString()));
 
-        return ImmutableList.of(Component.literal(fullLine));
+        if ((Object) this instanceof CountdownDisplaySource && context.sourceConfig().getBoolean("IsCountdownFinished")) {
+            return ImmutableList.of(Component.literal(context.sourceConfig().getString("FinishLabel")));
+        } else return ImmutableList.of(Component.literal(fullLine));
     }
 
     @ModifyReturnValue(method = "provideFlapDisplayText", at = @At("RETURN"))
@@ -90,7 +93,9 @@ public abstract class SingleLineDisplaySourceMixin {
         MutableComponent raw = this.createidlx$invokeProvideLine(context, stats);
         String fullLine = CreateIDLXMixinUtils.assembleFullLine(context, ((raw == SingleLineDisplaySource.EMPTY_LINE) ? "" : raw.getString()));
 
-        return ImmutableList.of(ImmutableList.of(Component.literal(fullLine)));
+        if ((Object) this instanceof CountdownDisplaySource && context.sourceConfig().getBoolean("IsCountdownFinished")) {
+            return ImmutableList.of(ImmutableList.of(Component.literal(context.sourceConfig().getString("FinishLabel"))));
+        } else return ImmutableList.of(ImmutableList.of(Component.literal(fullLine)));
     }
 
     @Inject(method = "loadFlapDisplayLayout", at = @At("HEAD"), cancellable = true)
@@ -99,6 +104,8 @@ public abstract class SingleLineDisplaySourceMixin {
         boolean isCrudeProgressBarSupportEnabled = CIDLXConfigs.server.enableCrudeProgressBarSupport.get();
 
         if (!this.createidlx$invokeAllowsLabeling(context)) return;
+
+//        if ((Object) this instanceof CountdownDisplaySource && context.sourceConfig().getBoolean("IsCountdownFinished")) return;
 
         String layoutKey = createidlx$invokeGetFlapDisplayLayoutName(context);
         if (layoutKey.equals("Progress") && !isCrudeProgressBarSupportEnabled) return;

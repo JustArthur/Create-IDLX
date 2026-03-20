@@ -12,6 +12,13 @@
   "createidlx.gui.display_link.progress_bar_support.enabled": "включена",
   "createidlx.gui.display_link.progress_bar_support.disabled": "отключена",
 
+  "createidlx.gui.timerScrollInput.scrollToModifySeconds": "Прокрутка для изменения секунд",
+  "createidlx.gui.timerScrollInput.ctrlScrollsMinutes": "Прокрутка с Ctrl для изменения минут",
+
+  "createidlx.display_source.countdown": "Обратный отсчёт",
+  "createidlx.display_source.countdown.time": "Таймер отсчёта",
+  "createidlx.display_source.countdown.finish_label": "Надпись по завершении отсчёта",
+
   "createidlx.display_source.current_floor_extended": "Местоположение лифта с доп. форматами",
   "createidlx.display_source.current_floor_extended.display": "Формат отображения",
   "createidlx.display_source.current_floor_extended.short_name": "Идентификатор этажа",

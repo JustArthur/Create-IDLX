@@ -1,4 +1,4 @@
-package com.vladiscrafter.createidlx.util;
+package com.vladiscrafter.createidlx.util.widget;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.gui.widget.SelectionScrollInput;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.Util;
 
@@ -95,12 +94,10 @@ public class InBoundsSelectionScrollInput extends SelectionScrollInput {
         int stringX = createidlx$isSourceTypeSelector ? textX - offset : textX - offset + 1;
         int stringY = createidlx$isSourceTypeSelector ? textY : textY - 1;
 
-//        int scissorDepth = GuiGraphicsScissorUtil.depth(graphics);
         graphics.enableScissor(minX, getY(), maxX, getY() + height);
         try {
             graphics.drawString(font, text, stringX, stringY, 0xFFFFFF, true);
         } finally {
-//            GuiGraphicsScissorUtil.restore(graphics, scissorDepth);
             graphics.disableScissor();
         }
     }

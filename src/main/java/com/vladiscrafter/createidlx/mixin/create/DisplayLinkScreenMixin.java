@@ -1,11 +1,8 @@
 package com.vladiscrafter.createidlx.mixin.create;
 
 import com.simibubi.create.api.behaviour.display.DisplaySource;
-import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkScreen;
 import com.simibubi.create.content.redstone.displayLink.source.SingleLineDisplaySource;
-import com.simibubi.create.foundation.gui.ModularGuiLine;
-import com.simibubi.create.foundation.gui.ModularGuiLineBuilder;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.Label;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
@@ -14,20 +11,15 @@ import com.vladiscrafter.createidlx.CreateIDLX;
 import com.vladiscrafter.createidlx.util.CreateIDLXGuiContext;
 import com.vladiscrafter.createidlx.util.CreateIDLXIcons;
 import com.vladiscrafter.createidlx.config.CIDLXConfigs;
-import com.vladiscrafter.createidlx.util.InBoundsSelectionScrollInput;
+import com.vladiscrafter.createidlx.util.widget.InBoundsSelectionScrollInput;
 import net.createmod.catnip.gui.AbstractSimiScreen;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.List;
 
