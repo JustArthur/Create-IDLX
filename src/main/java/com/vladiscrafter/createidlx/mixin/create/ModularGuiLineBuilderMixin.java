@@ -19,7 +19,6 @@ public abstract class ModularGuiLineBuilderMixin {
             target = "Lcom/simibubi/create/foundation/gui/widget/SelectionScrollInput;"))
     private SelectionScrollInput createidlx$replaceSelectionScrollInput(int x, int y, int width, int height) {
         if (CreateIDLXGuiContext.isInSourceConfig()) {
-            CreateIDLX.LOGGER.info("The source is {}", CreateIDLXGuiContext.currentSource());
             return new InBoundsSelectionScrollInput(x, y, width, height, false);
         }
         return new SelectionScrollInput(x, y, width, height);
@@ -29,7 +28,6 @@ public abstract class ModularGuiLineBuilderMixin {
             target = "Lcom/simibubi/create/foundation/gui/widget/ScrollInput;"))
     private ScrollInput createidlx$replaceScrollInput(int x, int y, int width, int height) {
         if(CreateIDLXGuiContext.currentSource() instanceof CountdownDisplaySource) {
-            CreateIDLX.LOGGER.info("Using TimerScrollInput ({})", CreateIDLXGuiContext.currentSource());
             return new TimerScrollInput(x, y, width, height);
         }
         return new ScrollInput(x, y, width, height);
