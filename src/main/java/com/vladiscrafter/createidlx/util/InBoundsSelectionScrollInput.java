@@ -14,6 +14,7 @@ public class InBoundsSelectionScrollInput extends SelectionScrollInput {
 
     private List<Component> createidlx$options = List.of();
     private long createidlx$lastStateChangeMillis = Util.getMillis();
+    private int createidlx$lastRenderedState = Integer.MIN_VALUE;
 
     private final boolean createidlx$isSourceTypeSelector;
 
@@ -29,15 +30,10 @@ public class InBoundsSelectionScrollInput extends SelectionScrollInput {
         this.createidlx$options = List.copyOf(options);
         this.format(i -> Component.empty());
 
-        return forOptions;
-    }
+        this.createidlx$lastRenderedState = Integer.MIN_VALUE;
+        this.createidlx$lastStateChangeMillis = Util.getMillis();
 
-    @Override
-    public ScrollInput setState(int state) {
-        if (state != getState()) {
-            createidlx$lastStateChangeMillis = Util.getMillis();
-        }
-        return super.setState(state);
+        return forOptions;
     }
 
     @Override
@@ -47,6 +43,11 @@ public class InBoundsSelectionScrollInput extends SelectionScrollInput {
 
         int state = getState();
         if (state < 0 || state >= createidlx$options.size()) return;
+
+        if (state != createidlx$lastRenderedState) {
+            createidlx$lastRenderedState = state;
+            createidlx$lastStateChangeMillis = Util.getMillis();
+        }
 
         String text = createidlx$options.get(state).getString();
         if (text.isEmpty()) return;
