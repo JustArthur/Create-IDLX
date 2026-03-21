@@ -9,12 +9,29 @@ public class CIDLXServer extends CIDLXConfigBase {
     public final ConfigBool enableBracketsSpecifier = b(true, "enableCurlyBracketsPlaceholder", Comments.enableBracketsSpecifier);
     public final ConfigBool enableDollarSpecifier = b(true, "enableDollarSignPlaceholder", Comments.enableDollarSpecifier);
 
+    public final ConfigGroup displaySourceSettings = group(1, "displaySourceSettings", "Display Source Settings");
+
+//    public final ConfigGroup newDisplaySourceSettings = group(2, "newDisplaySourceSettings", "New Display Sources");
+//    public final ConfigBool enableCurrentFloorExtendedDisplaySource = b(true, "enableCurrentFloorExtendedDisplaySource", Comments.enableCurrentFloorExtendedDisplaySource);
+//    public final ConfigBool enableCountdownDisplaySource = b(true, "enableCountdownDisplaySource", Comments.enableCountdownDisplaySource);
+
+//    public final ConfigGroup existingDisplaySourceSettings = group(2, "existingDisplaySourceSettings", "Existing Display Sources");
+    public final ConfigBool enhanceCurrentFloorDisplaySource = b(true, "enhanceCurrentFloorDisplaySource", Comments.enhanceCurrentFloorDisplaySource);
+    public final ConfigBool enhanceTrainStatusDisplaySource = b(true, "enhanceTrainStatusDisplaySource", Comments.enhanceTrainStatusDisplaySource);
+
     @Override public String getName() { return "server"; }
 
     private static class Comments {
-        static String enableBracketsSpecifier = "Treat {} (curly brackets) as a placeholder for the Attached Label.";
-        static String enableDollarSpecifier = "Treat $ (dollar sign) as a placeholder for the Attached Label.";
         static String hideEscapingOfDisabledSpecifiers = "Hide backslashes placed before the disabled placeholders.";
         static String enableCrudeProgressBarSupport = "Allow usage of placeholders for the Progress Bar display format (the bar characters will incorrectly appear as non-wide).";
+
+        static String enableBracketsSpecifier = "Treat {} (curly brackets) as a placeholder for the Attached Label.";
+        static String enableDollarSpecifier = "Treat $ (dollar sign) as a placeholder for the Attached Label.";
+
+        static String enableCurrentFloorExtendedDisplaySource = "Enable the Current Floor Extended display source.";
+        static String enableCountdownDisplaySource = "Enable the Countdown display source.";
+
+        static String enhanceCurrentFloorDisplaySource = "Add Attached Label functionality to the Current Floor display source from Create.";
+        static String enhanceTrainStatusDisplaySource = "Add Attached Label functionality to the Train Status display source from Create.";
     }
 }

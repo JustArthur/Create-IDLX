@@ -2,6 +2,7 @@ package com.vladiscrafter.createidlx.mixin.create.source;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.simibubi.create.content.redstone.displayLink.source.TrainStatusDisplaySource;
+import com.vladiscrafter.createidlx.config.CIDLXConfigs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -9,6 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 public class TrainStatusDisplaySourceMixin {
     @ModifyReturnValue(method = "allowsLabeling", at = @At("RETURN"))
     protected boolean allowsLabeling(boolean original) {
-        return true;
+        return CIDLXConfigs.server.enhanceTrainStatusDisplaySource.get();
     }
 }
