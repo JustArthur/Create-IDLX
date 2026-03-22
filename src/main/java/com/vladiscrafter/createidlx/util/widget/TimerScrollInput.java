@@ -102,6 +102,6 @@ public class TimerScrollInput extends ScrollInput {
         int minutes = totalSeconds / SECONDS_PER_MINUTE;
         int seconds = totalSeconds % SECONDS_PER_MINUTE;
 
-        return Component.literal(String.format(Locale.ROOT, "%02d:%02d", minutes, seconds));
+        return Component.literal(String.format(Locale.ROOT, "%01d:%02d", minutes, seconds));
     }
 }

@@ -52,7 +52,8 @@ public class CountdownDisplaySource extends SingleLineDisplaySource {
             isFinished = false;
         }
 
-        if (isFinished) return Component.literal(finishLabel);
+        if (isFinished && !finishLabel.isEmpty()) return Component.literal(finishLabel);
+        else if (isFinished) return Component.literal("00:00");
 
         int diff = (int) (current - started);
 
@@ -62,7 +63,7 @@ public class CountdownDisplaySource extends SingleLineDisplaySource {
         int minutes = ((total - diff) / 60 / 20) % 60;
         int seconds = ((total - diff) / 20) % 60;
 
-        component = Component.literal(String.format(Locale.ROOT, "%02d:%02d", minutes, seconds));
+        component = Component.literal(String.format(Locale.ROOT, "%01d:%02d", minutes, seconds));
         } else {
             component = Component.literal(finishLabel);
             onCountdownFinish(context);

@@ -84,7 +84,9 @@ public abstract class SingleLineDisplaySourceMixin {
         MutableComponent raw = this.createidlx$invokeProvideLine(context, stats);
         String fullLine = CreateIDLXMixinUtils.assembleFullLine(context, ((raw == SingleLineDisplaySource.EMPTY_LINE) ? "" : raw.getString()));
 
-        if ((Object) this instanceof CountdownDisplaySource && context.sourceConfig().getBoolean("IsCountdownFinished")) {
+        if ((Object) this instanceof CountdownDisplaySource
+                && context.sourceConfig().getBoolean("IsCountdownFinished")
+                && !context.sourceConfig().getString("FinishLabel").isEmpty()) {
             return ImmutableList.of(Component.literal(context.sourceConfig().getString("FinishLabel")));
         } else return ImmutableList.of(Component.literal(fullLine));
     }
@@ -109,7 +111,9 @@ public abstract class SingleLineDisplaySourceMixin {
         MutableComponent raw = this.createidlx$invokeProvideLine(context, stats);
         String fullLine = CreateIDLXMixinUtils.assembleFullLine(context, ((raw == SingleLineDisplaySource.EMPTY_LINE) ? "" : raw.getString()));
 
-        if ((Object) this instanceof CountdownDisplaySource && context.sourceConfig().getBoolean("IsCountdownFinished")) {
+        if ((Object) this instanceof CountdownDisplaySource
+                && context.sourceConfig().getBoolean("IsCountdownFinished")
+                && !context.sourceConfig().getString("FinishLabel").isEmpty()) {
             return ImmutableList.of(ImmutableList.of(Component.literal(context.sourceConfig().getString("FinishLabel"))));
         } else return ImmutableList.of(ImmutableList.of(Component.literal(fullLine)));
     }

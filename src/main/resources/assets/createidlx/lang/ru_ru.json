@@ -19,12 +19,12 @@
   "createidlx.display_source.countdown.time": "Таймер отсчёта",
   "createidlx.display_source.countdown.finish_label": "Надпись по завершении отсчёта",
 
-  "createidlx.display_source.current_floor_extended": "Местоположение лифта с доп. форматами",
+  "createidlx.display_source.current_floor_extended": "Местоположение лифта с дополнительными форматами",
   "createidlx.display_source.current_floor_extended.display": "Формат отображения",
   "createidlx.display_source.current_floor_extended.short_name": "Идентификатор этажа",
   "createidlx.display_source.current_floor_extended.long_name": "Описание этажа",
-  "createidlx.display_source.current_floor_extended.short_n_long": "Идентификатор и описание",
-  "createidlx.display_source.current_floor_extended.long_n_short": "Описание и идентификатор",
+  "createidlx.display_source.current_floor_extended.short_n_long": "Идентификатор и описание этажа",
+  "createidlx.display_source.current_floor_extended.long_n_short": "Описание и идентификатор этажа",
   "createidlx.display_source.current_floor_extended.double_template": "%s (%s)",
 
   "createidlx.ponder.attached_label.header": "Использованием спецификаторов в добавочной надписи передатчика информации",

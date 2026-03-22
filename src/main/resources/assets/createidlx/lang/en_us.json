@@ -16,7 +16,7 @@
   "createidlx.gui.timerScrollInput.ctrlScrollsMinutes": "Ctrl to Modify Minutes",
 
   "createidlx.display_source.countdown": "Countdown",
-  "createidlx.display_source.countdown.time": "Countdown Time",
+  "createidlx.display_source.countdown.time": "Countdown Timer",
   "createidlx.display_source.countdown.finish_label": "Countdown Finish Label",
 
   "createidlx.display_source.current_floor_extended": "Elevator Location with Extra Formats",
