@@ -1,6 +1,8 @@
-package com.vladiscrafter.createidlx.mixin.create;
+package com.vladiscrafter.createidlx.mixin.create.displayLink;
 
 import com.simibubi.create.api.behaviour.display.DisplaySource;
+import com.simibubi.create.api.behaviour.display.DisplayTarget;
+import com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkScreen;
 import com.simibubi.create.content.redstone.displayLink.source.SingleLineDisplaySource;
 import com.simibubi.create.foundation.gui.widget.IconButton;
@@ -11,11 +13,14 @@ import com.vladiscrafter.createidlx.CreateIDLX;
 import com.vladiscrafter.createidlx.util.gui.CreateIDLXGuiContext;
 import com.vladiscrafter.createidlx.util.CreateIDLXIcons;
 import com.vladiscrafter.createidlx.config.CIDLXConfigs;
+import com.vladiscrafter.createidlx.util.gui.CreateIDLXGuiTooltipBuffer;
 import com.vladiscrafter.createidlx.util.widget.InBoundsSelectionScrollInput;
 import net.createmod.catnip.gui.AbstractSimiScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -34,38 +39,69 @@ public abstract class DisplayLinkScreenMixin extends AbstractSimiScreen {
 
     @Shadow protected abstract void initGathererSourceSubOptions(int i);
 
+    @Shadow private DisplayLinkBlockEntity blockEntity;
+    @Shadow private BlockState targetState;
+    @Shadow private DisplayTarget target;
+
     @Inject(method = "initGathererOptions", at = @At("TAIL"))
     private void createidlx$replaceSourceTypeSelector(CallbackInfo ci) {
         if (sources == null || sources.isEmpty()) return;
-        if (sourceTypeSelector == null) return;
         if (sourceTypeSelector instanceof InBoundsSelectionScrollInput) return;
         if (!CIDLXConfigs.client.truncateOverflowingStrings.get()) return;
 
-        int currentState = sourceTypeSelector.getState();
-
+        int currentState = Math.max(sources.indexOf(blockEntity.activeSource), 0);
         List<Component> options = sources.stream()
                 .map(DisplaySource::getName)
                 .toList();
 
-        removeWidget(sourceTypeSelector);
+        if (sources.size() > 1) {
+            if (sourceTypeSelector == null) return;
+
+            removeWidget(sourceTypeSelector);
+            removeWidget(sourceTypeLabel);
+
+            sourceTypeSelector = new InBoundsSelectionScrollInput(
+                    guiLeft + 61, guiTop + 26, 135, 16, true, false)
+                    .forOptions(options)
+                    .writingTo(sourceTypeLabel)
+                    .titled(CreateLang.translateDirect("display_link.information_type"))
+                    .calling(this::initGathererSourceSubOptions)
+                    .setState(currentState);
+
+            addRenderableWidget(sourceTypeSelector);
+            initGathererSourceSubOptions(currentState);
+            return;
+        }
+
         removeWidget(sourceTypeLabel);
 
         sourceTypeSelector = new InBoundsSelectionScrollInput(
-                guiLeft + 61, guiTop + 26, 135, 16, true)
+                guiLeft + 61, guiTop + 26, 135, 16, true, true)
                 .forOptions(options)
                 .writingTo(sourceTypeLabel)
                 .titled(CreateLang.translateDirect("display_link.information_type"))
                 .calling(this::initGathererSourceSubOptions)
-                .setState(currentState);
+                .setState(0);
 
         addRenderableWidget(sourceTypeSelector);
+        initGathererSourceSubOptions(0);
+    }
 
-        initGathererSourceSubOptions(currentState);
+    @Inject(method = "initGathererOptions", at = @At("TAIL"))
+    private void createidlx$cacheTargetWidgetTooltip(CallbackInfo ci) {
+        CreateIDLXGuiTooltipBuffer.registerTargetWidgetTooltip(List.of(
+                CreateLang.translateDirect("display_link.writing_to"),
+                targetState.getBlock().getName()
+                        .withStyle(s -> s.withColor(target == null ? 0xF68989 : 0xF2C16D)),
+                CreateLang.translateDirect("display_link.targeted_location"),
+                CreateLang.translateDirect("display_link.view_compatible")
+                        .withStyle(ChatFormatting.GRAY)
+        ));
     }
 
     @Override
-    protected void removeWidget(GuiEventListener widget) {
-        if (widget != null) super.removeWidget(widget);
+    protected void removeWidget(@NotNull GuiEventListener widget) {
+        super.removeWidget(widget);
     }
 
     @Inject(method = "initGathererSourceSubOptions", at = @At("HEAD"))
